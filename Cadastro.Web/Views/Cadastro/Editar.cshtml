@@ -1,0 +1,68 @@
+﻿@model CadastroViewModel;
+@{
+}
+<section class="containerEdit mb-5">
+    <header class="d-flex justify-content-between align-items-center">
+        <h1>Edição de Cadastro</h1>
+        <a class="btn btn-light btnBack" asp-action="index">Voltar</a>
+    </header>
+    <form asp-action="editar" method="post">
+        <input type="hidden" asp-for="Cliente.IdCliente" />
+        <div as-action="adicionar" class="mb-3 inpuEdit">
+            <label asp-for="Cliente.Nome">Nome</label>
+            <input asp-for="Cliente.Nome" class="form-control" />
+        </div>
+        <div class="mb-3 inpuEdit">
+            <label asp-for="Cliente.Telefone">Telefone</label>
+            <input asp-for="Cliente.Telefone" class="form-control" />
+        </div>
+        <div class="mb-3 inpuEdit">
+            <label asp-for="Cliente.CPF">CPF</label>
+            <input asp-for="Cliente.CPF" class="form-control" />
+        </div>
+        <div class="mb-3 inpuEdit">
+            <button class="btn btn-primary btnEdit" type="submit">Editar</button> 
+            
+        </div>
+    </form>
+</section>
+<hr />
+
+<section class="wrapperEdit mt-5">
+    <header class="d-flex justify-content-between align-items-center">
+        <h2>Meus Endereços</h2>
+        <a class="btn btn-primary " asp-action="Endereco" asp-route-idCliente="@Model.Cliente.IdCliente"> + Endereço</a>
+    </header>
+    
+    <table class="table">
+        <tr>
+            <td>Cidade</td>
+            <td>Estado</td>
+            <td>Endereço</td>
+            <td>CEP</td>
+            <td></td>
+        </tr>
+         
+        @foreach (var endereco in Model.Endereco)
+        {
+            <tr>
+                <td>@endereco.Logradouro</td>
+                <td>@endereco.Cidade</td>
+                <td>@endereco.Estado</td>                
+                <td>@endereco.CEP</td>
+                <td><a asp-action="ExcluirEndereco" asp-route-idCliente ="@endereco.IdCliente" asp-route-idEndereco="@endereco.IdEndereco">Excluir</a></td>
+            </tr>
+        }
+        @if (Model.Endereco.Count() == 0)
+        {
+            <tr>
+                <td colspan="5" align="center">NENHUM ENDEREÇO CADASTRADO.</td>
+            </tr>
+        }
+    </table>
+</section>
+
+    
+
+
+
